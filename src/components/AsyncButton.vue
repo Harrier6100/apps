@@ -1,6 +1,6 @@
 <template>
-    <BaseButton type="submit" :disabled="props.isLoading">
-        <span v-if="props.isAsync" class="spinner-border spinner-border-sm me-1"></span>
+    <BaseButton type="submit" :disabled="isLoading">
+        <span v-if="isAsync" class="spinner-border spinner-border-sm me-1"></span>
         <slot></slot>
     </BaseButton>
 </template>
@@ -9,14 +9,8 @@
 import BaseButton from '@/components/BaseButton.vue';
 
 const props = defineProps({
-    isLoading: {
-        type: Boolean,
-        default: false,
-    },
-    isAsync: {
-        type: Boolean,
-        default: false,
-    },
+    isLoading: Boolean,
+    isAsync: Boolean,
 })
 const emit = defineEmits([]);
 </script>

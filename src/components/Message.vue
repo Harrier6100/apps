@@ -1,5 +1,7 @@
 <template>
-    <div v-if="isShow" :class="['form-text', color]">
+    <div v-if="isShow"
+        :class="classes"
+    >
         {{ message }}
     </div>
 </template>
@@ -11,6 +13,7 @@ const props = defineProps({
     success: String,
     error: String,
 });
+const emit = defineEmits([]);
 
 const isShow = computed(() => {
     return props.success || props.error;
@@ -20,13 +23,11 @@ const message = computed(() => {
     return props.success || props.error;
 });
 
-const color = computed(() => {
-    if (props.success) {
-        return 'text-success';
-    }
-    if (props.error) {
-        return 'text-danger';
-    }
-    return '';
+const classes = computed(() => {
+    return [
+        'form-text',
+        props.success && 'text-success',
+        props.error && 'text-danger',
+    ];
 });
 </script>

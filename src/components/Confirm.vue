@@ -12,6 +12,5 @@
 import { useConfirm } from '@/composables/useConfirm';
 import BaseModal from '@/components/BaseModal.vue';
 import BaseButton from '@/components/BaseButton.vue';
-
 const { isOpen, confirmMessage, confirmYes, confirmNo } = useConfirm();
 </script>

@@ -1,5 +1,5 @@
 export const routeMenus = {
-    'menu': [
+    'top': [
         {
             label: '管理',
             subMenu: 'menu-1',

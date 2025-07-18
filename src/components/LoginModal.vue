@@ -1,5 +1,5 @@
 <template>
-    <BaseModal :isOpen="props.isOpen" @close="emit('close')">
+    <BaseModal :isOpen="isOpen" @close="emit('close')">
         <BaseForm @submit="login">
 
             <div class="mb-3">
@@ -37,10 +37,7 @@ import AsyncButton from '@/components/AsyncButton.vue';
 import Message from '@/components/Message.vue';
 
 const props = defineProps({
-    isOpen: {
-        type: Boolean,
-        default: false,
-    },
+    isOpen: Boolean,
 });
 const emit = defineEmits(['close']);
 const router = useRouter();
