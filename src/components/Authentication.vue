@@ -1,11 +1,11 @@
 <template>
     <template v-if="isAuth">
-        <button class="btn btn-primary" type="button" @click="logout">
+        <Button variant="primary" @click="logout">
             <i class="bi bi-person-circle me-1"></i>{{ name }}
-        </button>
+        </Button>
     </template>
     <template v-else>
-        <button class="btn btn-primary" type="button" @click="loginModal.open">ログイン</button>
+        <Button variant="primary" @click="loginModal.open">ログイン</Button>
     </template>
 
     <LoginModal
@@ -22,6 +22,7 @@ import { useUser } from '@/composables/useUser';
 import { useConfirm } from '@/composables/useConfirm';
 import { useToast } from '@/composables/useToast';
 import { useToggle } from '@/composables/useToggle';
+import Button from '@/components/Button.vue';
 import LoginModal from '@/components/LoginModal.vue';
 
 const router = useRouter();

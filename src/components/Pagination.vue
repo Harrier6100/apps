@@ -1,20 +1,21 @@
 <template>
     <div class="d-flex justify-content-end">
-        <button class="btn btn-link" type="button" :disabled="props.page === 1" @click="emit('update:page', props.page - 1)">
+        <Button variant="link" :disabled="props.page === 1" @click="emit('update:page', props.page - 1)">
             <i class="bi bi-chevron-left"></i>
-        </button>
+        </Button>
         <template v-for="(page, index) in pages" :key="page === '...' ? page + '-' + index : page">
-            <button v-if="page === '...'" class="btn btn-link text-decoration-none" type="button" :disabled="true"></button>
-            <button v-if="page !== '...'" class="btn btn-link text-decoration-none" type="button" :disabled="page === props.page" @click="emit('update:page', page)">{{ page }}</button>
+            <Button v-if="page === '...'" variant="link" :disabled="true">...</Button>
+            <Button v-if="page !== '...'" variant="link" :disabled="page === props.page" @click="emit('update:page', page)">{{ page }}</Button>
         </template>
-        <button class="btn btn-link" type="button" :disabled="props.page >= props.pageLength" @click="emit('update:page', props.page + 1)">
+        <Button variant="link" :disabled="props.page >= props.pageLength" @click="emit('update:page', props.page + 1)">
             <i class="bi bi-chevron-right"></i>
-        </button>
+        </Button>
     </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue';
+import Button from '@/components/Button.vue';
 
 const props = defineProps({
     page: {
@@ -42,7 +43,7 @@ const pages = computed(() => {
     } else if (page >= pageLength - 3) {
         pageList.push(1, '...', pageLength - 4, pageLength - 3, pageLength - 2, pageLength - 1, pageLength);
     } else {
-        pageList.push(1, '...', page, page + 1, '...', pageLength);
+        pageList.push(1, '...', page - 1, page, page + 1, '...', pageLength);
     }
 
     return pageList;

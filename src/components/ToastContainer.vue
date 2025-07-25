@@ -10,7 +10,7 @@
                     <div class="toast-body">
                         {{ toast.message }}
                     </div>
-                    <button class="btn-close btn-close-white m-auto me-2" type="button" @click="removeToast(toast.id)"></button>
+                    <Button variant="close" class="btn-close-white m-auto me-2" @click="removeToast(toast.id)"></Button>
                 </div>
             </div>
         </div>
@@ -19,5 +19,6 @@
 
 <script setup>
 import { useToast } from '@/composables/useToast';
+import Button from '@/components/Button.vue';
 const { toasts, addToast, removeToast } = useToast();
 </script>

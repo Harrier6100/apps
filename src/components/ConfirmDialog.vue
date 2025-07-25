@@ -8,8 +8,8 @@
                         <div class="modal-body">
                             <p>{{ confirmMessage }}</p>
                             <div class="d-flex justify-content-end gap-3">
-                                <button class="btn btn-secondary" type="button" @click="confirmNo">No</button>
-                                <button class="btn btn-primary" type="button" @click="confirmYes">Yes</button>
+                                <Button variant="secondary" @click="confirmNo">No</Button>
+                                <Button variant="primary" @click="confirmYes">Yes</Button>
                             </div>
                         </div>
                     </div>
@@ -21,5 +21,6 @@
 
 <script setup>
 import { useConfirm } from '@/composables/useConfirm';
+import Button from '@/components/Button.vue';
 const { isOpen, confirmMessage, confirmYes, confirmNo } = useConfirm();
 </script>

@@ -1,10 +1,10 @@
 <template>
     <div class="container-fluid">
-        <h6 class="mb-3">アカウント</h6>
+        <h6 class="mb-3">物性マスタ</h6>
 
         <div class="d-flex justify-content-between gap-3 mb-3">
             <input class="form-control w-25" v-model="keyword" placeholder="検索">
-            <Button @click="createUser">新規作成</Button>
+            <Button @click="createPhysprop">新規作成</Button>
         </div>
 
         <table class="table table-hover">
@@ -12,9 +12,8 @@
                 <tr>
                     <td :class="orderBy('code')" @click="sortBy('code')" role="button">アカウント</td>
                     <td :class="orderBy('name')" @click="sortBy('name')" role="button">名前</td>
-                    <td :class="orderBy('role')" @click="sortBy('role')" role="button">ロール</td>
-                    <td :class="orderBy('expiryDate')" @click="sortBy('expiryDate')" role="button">有効期限</td>
-                    <td :class="orderBy('isActive')" @click="sortBy('isActive')" role="button">状態</td>
+                    <td :class="orderBy('uom')" @click="sortBy('uom')" role="button">単位</td>
+                    <td :class="orderBy('uomSi')" @click="sortBy('uomSi')" role="button">SI単位</td>
                     <td :class="orderBy('createdAt')" @click="sortBy('createdAt')" role="button">作成日時</td>
                     <td :class="orderBy('createdBy')" @click="sortBy('createdBy')" role="button">作成者</td>
                     <td :class="orderBy('updatedAt')" @click="sortBy('updatedAt')" role="button">更新日時</td>
@@ -23,20 +22,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in paginatedData" :key="user.code">
-                    <td>{{ user.code }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ roleLabel(user.role) }}</td>
-                    <td>{{ formatDate(user.expiryDate) }}</td>
-                    <td>{{ user.isActive ? '有効' : '無効' }}</td>
-                    <td>{{ formatAt(user.createdAt) }}</td>
-                    <td>{{ user.createdBy }}</td>
-                    <td>{{ formatAt(user.updatedAt) }}</td>
-                    <td>{{ user.updatedBy }}</td>
+                <tr v-for="physprop in paginatedData" :key="physprop.code">
+                    <td>{{ physprop.code }}</td>
+                    <td>{{ physprop.name }}</td>
+                    <td>{{ physprop.uom }}</td>
+                    <td>{{ physprop.uomSi }}</td>
+                    <td>{{ formatAt(physprop.createdAt) }}</td>
+                    <td>{{ physprop.createdBy }}</td>
+                    <td>{{ formatAt(physprop.updatedAt) }}</td>
+                    <td>{{ physprop.updatedBy }}</td>
                     <td>
                         <div class="d-flex justify-content-center gap-3">
-                            <Button v-if="hasPermission('users:update')" variant="link" class="p-0" @click="updateUser(user)">編集</Button>
-                            <Button v-if="hasPermission('users:remove')" variant="link" class="p-0" @click="removeUser(user)">削除</Button>
+                            <Button v-if="hasPermission('physprops:update')" variant="link" class="p-0" @click="updatePhysprop(physprop)">編集</Button>
+                            <Button v-if="hasPermission('physprops:remove')" variant="link" class="p-0" @click="removePhysprop(physprop)">削除</Button>
                         </div>
                     </td>
                 </tr>
@@ -72,24 +70,14 @@ const { isLoading, startLoading, stopLoading } = useLoading();
 const { confirm } = useConfirm();
 const { addToast } = useToast();
 
-const users = ref([]);
-const { keyword, page, pageLength, paginatedData, sortBy, orderBy } = useDataTable(users, 10);
+const physprops = ref([]);
+const { keyword, page, pageLength, paginatedData, sortBy, orderBy } = useDataTable(physprops, 10);
 
-const roleMap = {
-    admin: 'Admin',
-    user: 'User',
-    guest: 'Guest',
-};
-
-const roleLabel = (role) => {
-    return roleMap[role];
-};
-
-const fetchUsers = async () => {
+const fetchPhysprops = async () => {
     try {
         startLoading();
-        const response = await api.get('/api/users');
-        users.value = response.data;
+        const response = await api.get('/api/physprops');
+        physprops.value = response.data;
     } catch (error) {
         addToast(error.message, 'error');
     } finally {
@@ -97,29 +85,29 @@ const fetchUsers = async () => {
     }
 };
 
-const createUser = () => {
+const createPhysprop = () => {
     routerState.setQuery({ ...route.query });
     router.push({
-        name: 'UserCreate',
+        name: 'PhyspropCreate',
     });
 };
 
-const updateUser = ({ code }) => {
+const updatePhysprop = ({ code }) => {
     routerState.setQuery({ ...route.query });
     router.push({
-        name: 'UserUpdate',
+        name: 'PhyspropUpdate',
         params: { code },
     });
 };
 
-const removeUser = async ({ code }) => {
+const removePhysprop = async ({ code }) => {
     const isConfirmed = await confirm('削除しますか？');
     if (!isConfirmed) return;
 
     try {
         startLoading();
-        await api.delete(`/api/users/${code}`);
-        await fetchUsers();
+        await api.delete(`/api/physprops/${code}`);
+        await fetchPhysprops();
         addToast('削除しました。', 'success');
     } catch (error) {
         addToast(error.message, 'error');
@@ -129,6 +117,6 @@ const removeUser = async ({ code }) => {
 };
 
 onMounted(() => {
-    fetchUsers();
+    fetchPhysprops();
 });
 </script>

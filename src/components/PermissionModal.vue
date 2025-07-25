@@ -6,7 +6,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button class="btn-close" type="button" @click="emit('close')"></button>
+                            <Button variant="close" @click="emit('close')"></Button>
                         </div>
                         <div class="modal-body">
                             <table class="table">
@@ -15,7 +15,7 @@
                                         <td>リソース</td>
                                         <td>閲覧</td>
                                         <td>作成</td>
-                                        <td>変更</td>
+                                        <td>更新</td>
                                         <td>削除</td>
                                     </tr>
                                 </thead>
@@ -30,8 +30,8 @@
                             </table>
 
                             <div class="d-flex justify-content-end gap-3">
-                                <button class="btn btn-secondary" type="button" @click="emit('close')">キャンセル</button>
-                                <button class="btn btn-primary" type="button" @click="save">保存</button>
+                                <Button variant="secondary" @click="emit('close')">キャンセル</Button>
+                                <Button variant="primary" @click="save">保存</Button>
                             </div>
                         </div>
                     </div>
@@ -44,6 +44,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { permissionActions } from '@/config/permissionActions';
+import Button from '@/components/Button.vue';
 
 const props = defineProps({
     isOpen: Boolean,
@@ -54,7 +55,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['save', 'close']);
 const permissions = ref([]);
-const actions = ['view', 'create', 'update', 'remove'];
+const actions = ['read', 'create', 'update', 'remove'];
 
 watch(() => props.modelValue, (val) => {
     if (Array.isArray(val)) {

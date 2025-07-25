@@ -23,24 +23,16 @@
             <div class="row mb-3">
                 <label class="col-3 col-form-label pt-0">ロール</label>
                 <div class="col-9">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="admin" value="admin" v-model="user.role">
-                        <label class="form-check-label" for="admin">Admin</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="user" value="user" v-model="user.role">
-                        <label class="form-check-label" for="user">User</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="guest" value="guest" v-model="user.role">
-                        <label class="form-check-label" for="guest">Guest</label>
+                    <div v-for="role in roles" :key="role.value" class="form-check">
+                        <input class="form-check-input" type="radio" :id="role.value" :value="role.value" v-model="user.role">
+                        <label class="form-check-label" :for="role.value">{{ role.label }}</label>
                     </div>
                 </div>
             </div>
 
             <div class="row mb-3" v-if="user.role === 'user'">
                 <div class="col-9 offset-3">
-                    <button class="btn btn-link text-decoration-none ps-0" type="button" @click="permission.open">アクセス権限を設定</button>
+                    <Button variant="link" class="ps-0" @click="permission.open">アクセス権限を設定</Button>
                 </div>
             </div>
 
@@ -69,10 +61,8 @@
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <button class="btn btn-secondary" type="button" :disabled="isLoading" @click="back">キャンセル</button>
-                <button class="btn btn-primary" type="submit" :disabled="isLoading">
-                    <span v-if="isAsync" class="spinner-border spinner-border-sm me-1"></span>保存
-                </button>
+                <Button variant="secondary" type="button" :disabled="isLoading" @click="back">キャンセル</Button>
+                <Button variant="primary" type="submit" :isAsync="isAsync" :disabled="isLoading">保存</Button>
             </div>
 
         </form>
@@ -95,6 +85,7 @@ import { useAsync } from '@/composables/useAsync';
 import { useToast } from '@/composables/useToast';
 import { useToggle } from '@/composables/useToggle';
 import { api } from '@/services/api';
+import Button from '@/components/Button.vue';
 import Message from '@/components/Message.vue';
 import DatePicker from '@/components/DatePicker.vue';
 import PermissionModal from '@/components/PermissionModal.vue';
@@ -107,6 +98,7 @@ const { isAsync, execute } = useAsync();
 const { addToast } = useToast();
 const permission = useToggle();
 
+const errorMessage = ref({});
 const userRestore = () => ({
     code: '',
     name: '',
@@ -117,7 +109,12 @@ const userRestore = () => ({
     isActive: true,
 });
 const user = ref(userRestore());
-const errorMessage = ref({});
+
+const roles = [
+    { value: 'admin', label: 'Admin' },
+    { value: 'user', label: 'User' },
+    { value: 'guest', label: 'Guest' },
+];
 
 const isUpdateMode = computed(() => {
     return !!route.params.code;
@@ -133,8 +130,9 @@ const fetchUser = async () => {
     try {
         startLoading();
         const response = await api.get(`/api/users/${route.params.code}`);
-        user.value = { ...user.value, ...response.data };
+        user.value = { ...userRestore(), ...response.data };
     } catch (error) {
+        addToast(error.message, 'error');
     } finally {
         stopLoading();
     }
@@ -165,7 +163,10 @@ const validate = () => {
 };
 
 const save = async () => {
-    if (!validate()) return;
+    if (!validate()) {
+        addToast('入力内容に誤りがあります。', 'error');
+        return;
+    }
 
     try {
         startLoading();
@@ -173,13 +174,14 @@ const save = async () => {
             if (isUpdateMode.value) {
                 await api.put(`/api/users/${route.params.code}`, user.value);
             } else {
-                await api.post(`/api/users`, user.value);
+                await api.post('/api/users', user.value);
                 user.value = userRestore();
             }
         });
         addToast('保存しました。', 'success');
         back();
     } catch (error) {
+        addToast(error.message, 'error');
     } finally {
         stopLoading();
     }

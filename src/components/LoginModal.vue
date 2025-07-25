@@ -6,7 +6,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button class="btn-close" type="button" @click="emit('close')"></button>
+                            <Button variant="close" @click="emit('close')"></Button>
                         </div>
                         <div class="modal-body">
                             <form @submit.prevent="login" autocomplete="off">
@@ -23,9 +23,7 @@
                                 </div>
                                 
                                 <div class="d-grid">
-                                    <button class="btn btn-primary" type="submit" :disabled="isLoading">
-                                        <span v-if="isAsync" class="spinner-border spinner-border-sm me-1"></span>ログイン
-                                    </button>
+                                    <Button variant="primary" type="submit" :isAsync="isAsync" :disabled="isLoading">ログイン</Button>
                                 </div>
                             </form>
                             <Message :error="errorMessage.error" />
@@ -43,6 +41,7 @@ import { useRouter } from 'vue-router';
 import { useAuth } from '@/composables/useAuth';
 import { useLoading } from '@/composables/useLoading';
 import { useAsync } from '@/composables/useAsync';
+import Button from '@/components/Button.vue';
 import Message from '@/components/Message.vue';
 
 const props = defineProps({

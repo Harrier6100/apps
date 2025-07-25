@@ -4,7 +4,7 @@
             <div class="modal-backdrop show" @click.self="emit('close')"></div>
             <div class="offcanvas offcanvas-start show">
                 <div class="offcanvas-header">
-                    <button class="btn-close" type="button" @click="emit('close')"></button>
+                    <Button variant="close" @click="emit('close')"></Button>
                 </div>
                 <div class="offcanvas-body overflow-hidden p-0">
                     <div class="position-relative">
@@ -77,6 +77,7 @@
 import { ref, computed, watch } from 'vue';
 import { useUser } from '@/composables/useUser';
 import { routeMenus } from '@/config/routeMenus';
+import Button from '@/components/Button.vue';
 
 const props = defineProps({
     isOpen: Boolean,

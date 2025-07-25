@@ -1,9 +1,9 @@
 <template>
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
         <div class="container-fluid">
-            <button class="btn btn-link" type="button" @click="sidebar.open">
+            <Button variant="link" @click="sidebar.open">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </Button>
             <div class="me-auto">
                 <router-link class="navbar-brand" to="/">Brand</router-link>
             </div>
@@ -20,6 +20,7 @@
 <script setup>
 import { useToggle } from '@/composables/useToggle';
 import Authentication from '@/components/Authentication.vue';
+import Button from '@/components/Button.vue';
 import Sidebar from '@/components/Sidebar.vue';
 const sidebar = useToggle();
 </script>
