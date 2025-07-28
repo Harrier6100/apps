@@ -65,7 +65,7 @@
             <div class="row mb-3">
                 <label class="col-2 col-form-label" for="remarks">備考</label>
                 <div class="col-10">
-                    <textarea class="form-control" v-model="physprop.remarks"></textarea>
+                    <textarea class="form-control" id="remarks" v-model="physprop.remarks"></textarea>
                 </div>
             </div>
 
@@ -147,13 +147,13 @@ const validate = () => {
 
     errorMessage.value.code = '';
     if (!physprop.value.code) {
-        errorMessage.value.code = '物性コードを入力してください。';
+        errorMessage.value.code = '物性コードを入力してください';
         isValid = false;
     }
 
     errorMessage.value.name = '';
     if (!physprop.value.name) {
-        errorMessage.value.name = '物性名を入力してください。';
+        errorMessage.value.name = '物性名を入力してください';
         isValid = false;
     }
 
@@ -162,7 +162,7 @@ const validate = () => {
 
 const save = async () => {
     if (!validate()) {
-        addToast('入力内容に誤りがあります。', 'error');
+        addToast('入力内容に誤りがあります', 'error');
         return;
     }
 
@@ -173,10 +173,9 @@ const save = async () => {
                 await api.put(`/api/physprops/${route.params.code}`, physprop.value);
             } else {
                 await api.post('/api/physprops', physprop.value);
-                physprop.value = physpropRestore();
             }
         });
-        addToast('保存しました。', 'success');
+        addToast('保存しました', 'success');
         back();
     } catch (error) {
         addToast(error.message, 'error');

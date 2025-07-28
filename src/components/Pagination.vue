@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex justify-content-end">
-        <Button variant="link" :disabled="props.page === 1" @click="emit('update:page', props.page - 1)">
+        <Button type="button" variant="link" :disabled="props.page === 1" @click="emit('update:page', props.page - 1)">
             <i class="bi bi-chevron-left"></i>
         </Button>
         <template v-for="(page, index) in pages" :key="page === '...' ? page + '-' + index : page">
-            <Button v-if="page === '...'" variant="link" :disabled="true">...</Button>
-            <Button v-if="page !== '...'" variant="link" :disabled="page === props.page" @click="emit('update:page', page)">{{ page }}</Button>
+            <Button v-if="page === '...'" type="button" variant="link" :disabled="true">...</Button>
+            <Button v-if="page !== '...'" type="button" variant="link" :disabled="page === props.page" @click="emit('update:page', page)">{{ page }}</Button>
         </template>
-        <Button variant="link" :disabled="props.page >= props.pageLength" @click="emit('update:page', props.page + 1)">
+        <Button type="button" variant="link" :disabled="props.page >= props.pageLength" @click="emit('update:page', props.page + 1)">
             <i class="bi bi-chevron-right"></i>
         </Button>
     </div>

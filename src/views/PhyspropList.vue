@@ -4,7 +4,7 @@
 
         <div class="d-flex justify-content-between gap-3 mb-3">
             <input class="form-control w-25" v-model="keyword" placeholder="検索">
-            <Button @click="createPhysprop">新規作成</Button>
+            <Button type="button" @click="createPhysprop">新規作成</Button>
         </div>
 
         <table class="table table-hover">
@@ -33,8 +33,8 @@
                     <td>{{ physprop.updatedBy }}</td>
                     <td>
                         <div class="d-flex justify-content-center gap-3">
-                            <Button v-if="hasPermission('physprops:update')" variant="link" class="p-0" @click="updatePhysprop(physprop)">編集</Button>
-                            <Button v-if="hasPermission('physprops:remove')" variant="link" class="p-0" @click="removePhysprop(physprop)">削除</Button>
+                            <Button v-if="hasPermission('physprops:update')" type="button" variant="link" class="p-0" @click="updatePhysprop(physprop)">編集</Button>
+                            <Button v-if="hasPermission('physprops:remove')" type="button" variant="link" class="p-0" @click="removePhysprop(physprop)">削除</Button>
                         </div>
                     </td>
                 </tr>
@@ -108,7 +108,7 @@ const removePhysprop = async ({ code }) => {
         startLoading();
         await api.delete(`/api/physprops/${code}`);
         await fetchPhysprops();
-        addToast('削除しました。', 'success');
+        addToast('削除しました', 'success');
     } catch (error) {
         addToast(error.message, 'error');
     } finally {

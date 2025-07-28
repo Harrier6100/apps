@@ -6,7 +6,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <Button variant="close" @click="emit('close')"></Button>
+                            <Button type="button" variant="close" @click="emit('close')"></Button>
                         </div>
                         <div class="modal-body">
                             <table class="table">
@@ -30,8 +30,8 @@
                             </table>
 
                             <div class="d-flex justify-content-end gap-3">
-                                <Button variant="secondary" @click="emit('close')">キャンセル</Button>
-                                <Button variant="primary" @click="save">保存</Button>
+                                <Button type="button" variant="secondary" @click="emit('close')">キャンセル</Button>
+                                <Button type="button" variant="primary" @click="save">保存</Button>
                             </div>
                         </div>
                     </div>

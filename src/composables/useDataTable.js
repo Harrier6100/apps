@@ -11,6 +11,8 @@ export const useDataTable = (tableData, pageSize = 10) => {
         keyword,
         page,
         pageLength,
+        filteredData,
+        sortedData,
         paginatedData,
         sortBy,
         orderBy,

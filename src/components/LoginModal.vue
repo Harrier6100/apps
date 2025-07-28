@@ -6,7 +6,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <Button variant="close" @click="emit('close')"></Button>
+                            <Button type="button" variant="close" @click="emit('close')"></Button>
                         </div>
                         <div class="modal-body">
                             <form @submit.prevent="login" autocomplete="off">
@@ -23,7 +23,7 @@
                                 </div>
                                 
                                 <div class="d-grid">
-                                    <Button variant="primary" type="submit" :isAsync="isAsync" :disabled="isLoading">ログイン</Button>
+                                    <Button type="submit" variant="primary" :isAsync="isAsync" :disabled="isLoading">ログイン</Button>
                                 </div>
                             </form>
                             <Message :error="errorMessage.error" />

@@ -10,7 +10,7 @@
                     <div class="toast-body">
                         {{ toast.message }}
                     </div>
-                    <Button variant="close" class="btn-close-white m-auto me-2" @click="removeToast(toast.id)"></Button>
+                    <Button type="button" variant="close" class="btn-close-white m-auto me-2" @click="removeToast(toast.id)"></Button>
                 </div>
             </div>
         </div>

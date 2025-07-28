@@ -1,11 +1,11 @@
 <template>
     <template v-if="isAuth">
-        <Button variant="primary" @click="logout">
+        <Button type="button" variant="primary" @click="logout">
             <i class="bi bi-person-circle me-1"></i>{{ name }}
         </Button>
     </template>
     <template v-else>
-        <Button variant="primary" @click="loginModal.open">ログイン</Button>
+        <Button type="button" variant="primary" @click="loginModal.open">ログイン</Button>
     </template>
 
     <LoginModal

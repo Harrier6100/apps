@@ -32,7 +32,7 @@
 
             <div class="row mb-3" v-if="user.role === 'user'">
                 <div class="col-9 offset-3">
-                    <Button variant="link" class="ps-0" @click="permission.open">アクセス権限を設定</Button>
+                    <Button type="button" variant="link" class="ps-0" @click="permission.open">アクセス権限を設定</Button>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
             <div class="row mb-3">
                 <label class="col-3 col-form-label" for="remarks">備考</label>
                 <div class="col-9">
-                    <textarea class="form-control" v-model="user.remarks"></textarea>
+                    <textarea class="form-control" id="remarks" v-model="user.remarks"></textarea>
                 </div>
             </div>
 
@@ -61,8 +61,8 @@
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <Button variant="secondary" type="button" :disabled="isLoading" @click="back">キャンセル</Button>
-                <Button variant="primary" type="submit" :isAsync="isAsync" :disabled="isLoading">保存</Button>
+                <Button type="button" variant="secondary" :disabled="isLoading" @click="back">キャンセル</Button>
+                <Button type="submit" variant="primary" :isAsync="isAsync" :disabled="isLoading">保存</Button>
             </div>
 
         </form>
@@ -143,19 +143,19 @@ const validate = () => {
 
     errorMessage.value.code = '';
     if (!user.value.code) {
-        errorMessage.value.code = 'アカウントを入力してください。';
+        errorMessage.value.code = 'アカウントを入力してください';
         isValid = false;
     }
 
     errorMessage.value.name = '';
     if (!user.value.name) {
-        errorMessage.value.name = '名前を入力してください。';
+        errorMessage.value.name = '名前を入力してください';
         isValid = false;
     }
 
     errorMessage.value.expiryDate = '';
     if (user.value.role === 'guest' && !user.value.expiryDate) {
-        errorMessage.value.expiryDate = '有効期限を設定してください。';
+        errorMessage.value.expiryDate = '有効期限を設定してください';
         isValid = false;
     }
 
@@ -164,7 +164,7 @@ const validate = () => {
 
 const save = async () => {
     if (!validate()) {
-        addToast('入力内容に誤りがあります。', 'error');
+        addToast('入力内容に誤りがあります', 'error');
         return;
     }
 
@@ -175,10 +175,9 @@ const save = async () => {
                 await api.put(`/api/users/${route.params.code}`, user.value);
             } else {
                 await api.post('/api/users', user.value);
-                user.value = userRestore();
             }
         });
-        addToast('保存しました。', 'success');
+        addToast('保存しました', 'success');
         back();
     } catch (error) {
         addToast(error.message, 'error');

@@ -6,7 +6,7 @@ export const routeMenus = {
         },
         {
             label: '品質',
-            subMenu: 'menu#2',
+            subMenu: 'menu#3',
         },
     ],
     'menu#1': [
@@ -19,7 +19,7 @@ export const routeMenus = {
             showInMenu: true,
         },
     ],
-    'menu#2': [
+    'menu#3': [
         {
             label: '物性マスタ',
             to: '/physprops',

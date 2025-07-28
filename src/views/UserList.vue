@@ -4,7 +4,7 @@
 
         <div class="d-flex justify-content-between gap-3 mb-3">
             <input class="form-control w-25" v-model="keyword" placeholder="検索">
-            <Button @click="createUser">新規作成</Button>
+            <Button type="button" variant="primary" @click="createUser">新規作成</Button>
         </div>
 
         <table class="table table-hover">
@@ -35,8 +35,8 @@
                     <td>{{ user.updatedBy }}</td>
                     <td>
                         <div class="d-flex justify-content-center gap-3">
-                            <Button v-if="hasPermission('users:update')" variant="link" class="p-0" @click="updateUser(user)">編集</Button>
-                            <Button v-if="hasPermission('users:remove')" variant="link" class="p-0" @click="removeUser(user)">削除</Button>
+                            <Button v-if="hasPermission('users:update')" type="button" variant="link" class="p-0" @click="updateUser(user)">編集</Button>
+                            <Button v-if="hasPermission('users:remove')" type="button" variant="link" class="p-0" @click="removeUser(user)">削除</Button>
                         </div>
                     </td>
                 </tr>
@@ -82,7 +82,7 @@ const roleMap = {
 };
 
 const roleLabel = (role) => {
-    return roleMap[role];
+    return roleMap[role] ?? '';
 };
 
 const fetchUsers = async () => {
@@ -120,7 +120,7 @@ const removeUser = async ({ code }) => {
         startLoading();
         await api.delete(`/api/users/${code}`);
         await fetchUsers();
-        addToast('削除しました。', 'success');
+        addToast('削除しました', 'success');
     } catch (error) {
         addToast(error.message, 'error');
     } finally {

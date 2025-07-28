@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
         <div class="container-fluid">
-            <Button variant="link" @click="sidebar.open">
+            <Button type="button" variant="link" @click="sidebar.open">
                 <span class="navbar-toggler-icon"></span>
             </Button>
             <div class="me-auto">

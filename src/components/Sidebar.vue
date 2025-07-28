@@ -4,7 +4,7 @@
             <div class="modal-backdrop show" @click.self="emit('close')"></div>
             <div class="offcanvas offcanvas-start show">
                 <div class="offcanvas-header">
-                    <Button variant="close" @click="emit('close')"></Button>
+                    <Button type="button" variant="close" @click="emit('close')"></Button>
                 </div>
                 <div class="offcanvas-body overflow-hidden p-0">
                     <div class="position-relative">
