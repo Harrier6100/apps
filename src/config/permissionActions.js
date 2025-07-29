@@ -17,4 +17,13 @@ export const permissionActions = {
             remove: 'physprops:remove',
         },
     },
+    'physpropSpecs': {
+        label: '物性規格マスタ',
+        actions: {
+            read: 'physpropSpecs:read',
+            create: 'physpropSpecs:create',
+            update: 'physpropSpecs:update',
+            remove: 'physpropSpecs:remove',
+        },
+    },
 };

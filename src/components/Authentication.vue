@@ -1,5 +1,16 @@
 <template>
     <template v-if="isAuth">
+        <Button type="button" variant="primary">
+            <div class="position-relative">
+                <i class="bi bi-bell"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+            </div>
+        </Button>
+        <Button type="button" variant="primary">
+            <router-link class="text-white" to="/">
+                <i class="bi bi-gear"></i>
+            </router-link>
+        </Button>
         <Button type="button" variant="primary" @click="logout">
             <i class="bi bi-person-circle me-1"></i>{{ name }}
         </Button>

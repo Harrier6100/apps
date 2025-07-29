@@ -28,5 +28,13 @@ export const routeMenus = {
             permissions: ['physprops:read'],
             showInMenu: true,
         },
+        {
+            label: '物性規格マスタ',
+            to: '/physprop/specs',
+            requiresAuth: true,
+            roles: ['admin'],
+            permissions: ['physpropSpecs:read'],
+            showInMenu: true,
+        },
     ],
 };

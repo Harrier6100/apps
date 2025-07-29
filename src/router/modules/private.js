@@ -14,4 +14,9 @@ export default [
         name: 'PhyspropUpdate',
         component: () => import('@/views/PhyspropEdit.vue')
     },
+    {
+        path: '/physprop/specs/new',
+        name: 'PhyspropSpecCreate',
+        component: () => import('@/views/PhyspropSpecEdit.vue')
+    },
 ];
